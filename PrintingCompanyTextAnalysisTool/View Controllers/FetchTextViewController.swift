@@ -13,6 +13,7 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var newInputButtonFileButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +46,17 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
 
         guard let url = urls.first else { return }
-
+        print(url)
         do {
-            let data = try Data(contentsOf: url, options: .uncached)
+            let data = try Data(contentsOf: url)
             print(data)
+            if let dataString = String(data: data, encoding: .utf8) {
+                print(dataString)
+                let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alertController, animated:  true)
+            }
+
         } catch {
             NSLog("$@", error.localizedDescription)
         }

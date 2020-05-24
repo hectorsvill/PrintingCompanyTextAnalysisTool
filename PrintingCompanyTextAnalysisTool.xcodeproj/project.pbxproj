@@ -14,6 +14,7 @@
 		12C82D1F247B14D200C4AF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12C82D1D247B14D200C4AF31 /* LaunchScreen.storyboard */; };
 		12C82D27247B150F00C4AF31 /* FetchTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D26247B150F00C4AF31 /* FetchTextViewController.swift */; };
 		12C82D2D247B1D7C00C4AF31 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C82D2C247B1D7C00C4AF31 /* CloudKit.framework */; };
+		12C82D2F247B2DAC00C4AF31 /* FileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D2E247B2DAC00C4AF31 /* FileStats.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		12C82D26247B150F00C4AF31 /* FetchTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTextViewController.swift; sourceTree = "<group>"; };
 		12C82D2A247B1C2B00C4AF31 /* PrintingCompanyTextAnalysisTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrintingCompanyTextAnalysisTool.entitlements; sourceTree = "<group>"; };
 		12C82D2C247B1D7C00C4AF31 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		12C82D2E247B2DAC00C4AF31 /* FileStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStats.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				12C82D2A247B1C2B00C4AF31 /* PrintingCompanyTextAnalysisTool.entitlements */,
 				12C82D29247B153100C4AF31 /* Life Cycle */,
 				12C82D28247B152000C4AF31 /* View Controllers */,
+				12C82D30247B2E3300C4AF31 /* Model */,
 				12C82D18247B14D000C4AF31 /* Main.storyboard */,
 				12C82D1B247B14D200C4AF31 /* Assets.xcassets */,
 				12C82D1D247B14D200C4AF31 /* LaunchScreen.storyboard */,
@@ -95,6 +98,14 @@
 				12C82D2C247B1D7C00C4AF31 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		12C82D30247B2E3300C4AF31 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				12C82D2E247B2DAC00C4AF31 /* FileStats.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12C82D13247B14D000C4AF31 /* AppDelegate.swift in Sources */,
+				12C82D2F247B2DAC00C4AF31 /* FileStats.swift in Sources */,
 				12C82D27247B150F00C4AF31 /* FetchTextViewController.swift in Sources */,
 				12C82D15247B14D000C4AF31 /* SceneDelegate.swift in Sources */,
 			);
