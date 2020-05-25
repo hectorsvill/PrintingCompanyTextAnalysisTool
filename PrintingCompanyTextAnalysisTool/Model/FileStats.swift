@@ -21,10 +21,10 @@ class FileStats {
 
     //  a frequency analysis of the top-20 most common consecutive one-character,
     //  two-character, and three-character patterns.
-    var ligatures1Character: [String: Int] = [:] // [ 1 character : count ]
-    var ligatures2Character: [String: Int] = [:] // [ 2 character : count ]
-    var ligatures3Character: [String: Int] = [:] // [ 3 character : count ]
-    var wordsDictionary: [String: Int] = [:] //  a group of characters sorounded by spaces
+    var wordsDictionary: [String: Int] = [:]
+    var ligatures1Character: [(String, Int)] = []
+    var ligatures2Character: [(String, Int)] = []
+    var ligatures3Character: [(String, Int)] = []
 
     var timeToAnalyze: Double? = nil {
         didSet { self.analysisComplete.toggle()}

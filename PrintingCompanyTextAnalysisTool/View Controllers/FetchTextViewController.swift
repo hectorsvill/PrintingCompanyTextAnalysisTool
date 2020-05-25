@@ -31,7 +31,6 @@ class FetchTextViewController: UIViewController {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.data"], in: .import)
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = false
-
         present(documentPicker, animated: true, completion: nil)
     }
 }
@@ -45,27 +44,23 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
         guard let url = urls.first else { return }
 
         do {
-            let data = try Data(contentsOf: url)
-            if let dataString = String(data: data, encoding: .utf8),
-                let name = url.absoluteString.split(separator: "/").last {
+            let dataString = try String(contentsOf: url, encoding: .utf8)
+            let name = url.absoluteString.split(separator: "/").last!
+            let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
+            self.fileController.addFile(fileStats)
+            // start download here
+//            self.fileController.performFrequencyAnalysis(fileStats)
 
-                let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
-                self.fileController.addFile(fileStats)
-                self.fileController.performFrequencyAnalysis(fileStats)
-
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-
-                }
-            }else {
-                let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                present(alertController, animated:  true)
-
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
 
         } catch {
-            NSLog("$@", error.localizedDescription)
+            let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            DispatchQueue.main.async {
+                self.present(alertController, animated:  true)
+            }
         }
 
     }
@@ -76,10 +71,24 @@ extension FetchTextViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let currentFile = fileController.fileStatsList[indexPath.section]
-        let singleCharacterValues = fileController.sortDictionary(currentFile.ligatures1Character)
+        if !currentFile.analysisComplete {
+            let cancelProcessAlertController = UIAlertController(title: "Stop Processing", message: currentFile.name, preferredStyle: .alert)
 
-        print(singleCharacterValues[0])
+            cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
+                guard let self = self else { return }
+                print("stop  \(currentFile.name) from processing and remove")
 
+                self.fileController.removeFile(indexPath.section)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+
+            })
+
+            cancelProcessAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(cancelProcessAlertController, animated: true)
+
+        }
     }
 }
 
@@ -105,7 +114,7 @@ extension FetchTextViewController: UITableViewDataSource {
         cell.textLabel?.text =  currentFile.analysisComplete ? "Complete" : "In Progress ..."
         cell.textLabel?.font = .systemFont(ofSize: 11)
         cell.textLabel?.textColor = .systemGray
-        cell.detailTextLabel?.text = String(format: "Time: %0.5F", currentFile.timeToAnalyze ?? 0)
+        cell.detailTextLabel?.text = currentFile.analysisComplete ? String(format: "Time: %0.5F", currentFile.timeToAnalyze ?? 0) : ""
         return cell
     }
 
