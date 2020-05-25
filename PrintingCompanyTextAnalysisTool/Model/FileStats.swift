@@ -10,9 +10,8 @@ import Foundation
 
 struct FileStats {
     let url: URL
-    let name: String?
-    let timeToAnalyze: Int?
-
-
+    let dataString: String
+    let name: String
+    let timeToAnalyze: Int? = nil
 
 }

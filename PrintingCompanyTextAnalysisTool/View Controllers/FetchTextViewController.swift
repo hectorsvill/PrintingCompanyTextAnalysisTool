@@ -13,6 +13,7 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var newInputButtonFileButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
+    private var myFiles: [FileStats] = []
     
 
     override func viewDidLoad() {
@@ -49,12 +50,16 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
         print(url)
         do {
             let data = try Data(contentsOf: url)
-            print(data)
-            if let dataString = String(data: data, encoding: .utf8) {
-                print(dataString)
+            if let dataString = String(data: data, encoding: .utf8),
+                let name = url.absoluteString.split(separator: "/").last {
+                let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
+                self.myFiles.append(fileStats)
+                self.tableView.reloadData()
+            }else {
                 let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 present(alertController, animated:  true)
+
             }
 
         } catch {
@@ -64,10 +69,19 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
     }
 }
 
-extension FetchTextViewController: UITableViewDelegate, UITableViewDataSource {
+extension FetchTextViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        //check  frequency analysis, if still progress cancel
+
+    }
+}
+
+extension FetchTextViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return myFiles.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,13 +89,15 @@ extension FetchTextViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "header \(section)"
+        return myFiles[section].name
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath)
-        cell.textLabel?.text = "text label"
-        cell.detailTextLabel?.text = "Detail Label"
+
+        let currentFile = myFiles[indexPath.row]
+        cell.textLabel?.text = "..."
+        cell.detailTextLabel?.text = "Time: \(currentFile.timeToAnalyze ?? 0)"
         return cell
     }
 

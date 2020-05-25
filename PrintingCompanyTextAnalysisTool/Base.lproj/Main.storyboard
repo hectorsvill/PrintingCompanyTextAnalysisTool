@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Text Analysis Tool-->
+        <!--Frequency Analysis-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="FetchTextViewController" customModule="PrintingCompanyTextAnalysisTool" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,7 +73,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Text Analysis Tool" id="A83-2l-DaN"/>
+                    <navigationItem key="navigationItem" title="Frequency Analysis" id="A83-2l-DaN"/>
                     <connections>
                         <outlet property="newInputButtonFileButton" destination="LiN-Yh-1QP" id="KKf-41-iH5"/>
                         <outlet property="tableView" destination="H7f-Cy-nUZ" id="4ra-WR-OgI"/>
