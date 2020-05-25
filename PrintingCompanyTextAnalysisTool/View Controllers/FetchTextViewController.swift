@@ -75,7 +75,10 @@ extension FetchTextViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        //check  frequency analysis, if still progress cancel
+        let currentFile = fileController.fileStatsList[indexPath.section]
+        let singleCharacterValues = fileController.sortDictionary(currentFile.ligatures1Character)
+
+        print(singleCharacterValues[0])
 
     }
 }

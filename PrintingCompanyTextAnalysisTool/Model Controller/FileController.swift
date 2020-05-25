@@ -21,24 +21,40 @@ class FileControrller {
 
     func performFrequencyAnalysis(_ fileStats: FileStats) {
         let timer1 = Date()
+
+//        wordAnalysis(fileStats)
         singleCharacterAnalysis(fileStats)
 
-        let timer2 = Date()
 
-        let time = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
-        print(time)
-        fileStats.timeToAnalyze = time
+        let timer2 = Date()
+        fileStats.timeToAnalyze = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
+    }
+
+    func wordAnalysis(_ fileStats: FileStats) {
+        let words = fileStats.dataString.split(separator: " ")
+
+        words.forEach {
+            fileStats.wordsDictionary[ String($0), default: 0] += 1
+        }
     }
 
     func singleCharacterAnalysis(_ fileStats: FileStats) {
-
-        let words = fileStats.dataString.split(separator: " ")
-        for word in words {
-            fileStats.words[ String(word), default: 0] += 1
+        fileStats.dataString.forEach {
+            if $0 != " " {
+                fileStats.ligatures1Character[String($0), default: 0] += 1
+            }
         }
-
-
     }
 
+    func sortDictionary(_ dictionary: [String: Int]) -> [[String:Int]] {
+        let sortedList = dictionary.sorted { $0.value > $1.value }
+
+        var values: [[String: Int]] = []
+        for item in sortedList {
+            values.append(Dictionary(dictionaryLiteral: item))
+        }
+
+        return values
+    }
 
 }

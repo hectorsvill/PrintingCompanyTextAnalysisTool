@@ -24,7 +24,7 @@ class FileStats {
     var ligatures1Character: [String: Int] = [:] // [ 1 character : count ]
     var ligatures2Character: [String: Int] = [:] // [ 2 character : count ]
     var ligatures3Character: [String: Int] = [:] // [ 3 character : count ]
-    var words: [String: Int] = [:] // [ word : count ]
+    var wordsDictionary: [String: Int] = [:] //  a group of characters sorounded by spaces
 
     var timeToAnalyze: Double? = nil {
         didSet { self.analysisComplete.toggle()}
