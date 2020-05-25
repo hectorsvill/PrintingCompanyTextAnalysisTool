@@ -18,4 +18,27 @@ class FileControrller {
     }
 
 
+
+    func performFrequencyAnalysis(_ fileStats: FileStats) {
+        let timer1 = Date()
+        singleCharacterAnalysis(fileStats)
+
+        let timer2 = Date()
+
+        let time = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
+        print(time)
+        fileStats.timeToAnalyze = time
+    }
+
+    func singleCharacterAnalysis(_ fileStats: FileStats) {
+
+        let words = fileStats.dataString.split(separator: " ")
+        for word in words {
+            fileStats.words[ String(word), default: 0] += 1
+        }
+
+
+    }
+
+
 }

@@ -42,9 +42,8 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
     }
 
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-
         guard let url = urls.first else { return }
-        print(url)
+
         do {
             let data = try Data(contentsOf: url)
             if let dataString = String(data: data, encoding: .utf8),
@@ -52,8 +51,12 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
 
                 let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
                 self.fileController.addFile(fileStats)
+                self.fileController.performFrequencyAnalysis(fileStats)
 
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+
+                }
             }else {
                 let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -94,9 +97,12 @@ extension FetchTextViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath)
 
-        let currentFile = fileController.fileStatsList[indexPath.row]
-        cell.textLabel?.text = "..."
-        cell.detailTextLabel?.text = "Time: \(currentFile.timeToAnalyze ?? 0)"
+        let currentFile = fileController.fileStatsList[indexPath.section]
+        
+        cell.textLabel?.text =  currentFile.analysisComplete ? "Complete" : "In Progress ..."
+        cell.textLabel?.font = .systemFont(ofSize: 11)
+        cell.textLabel?.textColor = .systemGray
+        cell.detailTextLabel?.text = String(format: "Time: %0.5F", currentFile.timeToAnalyze ?? 0)
         return cell
     }
 
