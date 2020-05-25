@@ -13,7 +13,7 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var newInputButtonFileButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
-    private var myFiles: [FileStats] = []
+    private var fileController = FileControrller()
     
 
     override func viewDidLoad() {
@@ -28,15 +28,12 @@ class FetchTextViewController: UIViewController {
     }
 
     @IBAction func newInputButtonFileButtonPressed(_ sender: Any) {
-//        let types = ["kUTTypePDF", "kUTTypeText", "kUTTypeRTF", "kUTTypeSpreadsheet"]
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.data"], in: .import)
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = false
 
         present(documentPicker, animated: true, completion: nil)
-
     }
-
 }
 
 extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate {
@@ -52,8 +49,10 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let data = try Data(contentsOf: url)
             if let dataString = String(data: data, encoding: .utf8),
                 let name = url.absoluteString.split(separator: "/").last {
+
                 let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
-                self.myFiles.append(fileStats)
+                self.fileController.addFile(fileStats)
+
                 self.tableView.reloadData()
             }else {
                 let alertController = UIAlertController(title: "Error: File is not UTF-8 Compatible", message: nil, preferredStyle: .actionSheet)
@@ -81,7 +80,7 @@ extension FetchTextViewController: UITableViewDelegate {
 extension FetchTextViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return myFiles.count
+        return fileController.fileStatsList.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,13 +88,13 @@ extension FetchTextViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return myFiles[section].name
+        return fileController.fileStatsList[section].name
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath)
 
-        let currentFile = myFiles[indexPath.row]
+        let currentFile = fileController.fileStatsList[indexPath.row]
         cell.textLabel?.text = "..."
         cell.detailTextLabel?.text = "Time: \(currentFile.timeToAnalyze ?? 0)"
         return cell
