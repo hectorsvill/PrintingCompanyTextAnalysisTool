@@ -88,11 +88,7 @@ extension FetchTextViewController: UITableViewDelegate {
         } else {
             let swiftUIView = ChartsSwiftUIView(fileStats: currentFile)
             let viewController = UIHostingController(rootView: swiftUIView)
-
             present(viewController, animated: true)
-
-
-
         }
     }
 }
