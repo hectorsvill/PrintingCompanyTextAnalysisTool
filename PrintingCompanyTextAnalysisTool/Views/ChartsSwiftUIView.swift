@@ -11,6 +11,8 @@ import SwiftUI
 struct ChartsSwiftUIView: View {
     @ObservedObject var fileStats: FileStats
 
+    let maxWidth: CGFloat = 230
+    let height: CGFloat = 10
     @State private var characterPickerSelectedItem = 0
     @State private var chartPickerSelectedItem = 0
 
@@ -33,13 +35,38 @@ struct ChartsSwiftUIView: View {
                         Text("16 - 20").tag(3)
                     }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
 
+                    VStack (spacing: 8) {
+                        BarView(value: 20)
+                        BarView(value: 50)
+                    }
+
+
                 }
 
-
             }
-            .navigationBarTitle(Text(" \(fileStats.name)").font(.system(size: 24)).fontWeight(.thin))
+            .navigationBarTitle(fileStats.name)
         }
     }
+}
+
+struct BarView: View {
+    let maxWidth: CGFloat = 230
+    let height: CGFloat = 10
+
+    var value: CGFloat
+
+    var body: some View {
+        HStack {
+            Text("e")
+            ZStack (alignment: .leading) {
+                Capsule().frame(width: maxWidth, height: height).foregroundColor(Color.init(.systemGray5))
+                Capsule().frame(width: 30, height: height).foregroundColor(Color.init(.systemGreen))
+            }
+            Text("23")
+        }
+
+    }
+
 }
 
 struct ChartsSwiftUIView_Previews: PreviewProvider {
