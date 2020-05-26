@@ -36,7 +36,7 @@ class FileControrller {
 
 
         dataString.forEach {
-            if $0 != " " {
+            if $0 >= "A" && $0 <= "z" {
                 singleChardictionary[String($0), default: 0] += 1
             }
 
