@@ -23,75 +23,48 @@ class FileControrller {
     func performFrequencyAnalysis(_ fileStats: FileStats) {
         let timer1 = Date()
 
-        singleCharacterAnalysis(fileStats)
-        doubleCharacterAnalysis(fileStats)
-        tripleCharacterAnalysis(fileStats)
-
+        characterAnalysis(fileStats)
+        
         let timer2 = Date()
         fileStats.timeToAnalyze = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
     }
 
-    func singleCharacterAnalysis(_ fileStats: FileStats) {
+    func characterAnalysis(_ fileStats: FileStats) {
         var singleChardictionary: [String: Int] = [:]
+        var doubleChardictionary: [String: Int] = [:]
+        var tripleChardictionary: [String: Int] = [:]
 
         let stringArray = Array(fileStats.dataString)
         var index = 0
 
-        while index < stringArray.count {
-            let character = stringArray[index]
+        while index < stringArray.count{
+            let firstCharacter = stringArray[index]
+            let secondCharacter = index < stringArray.count - 1 ? stringArray[index + 1] : "a"
+            let thirdCharacter = index < stringArray.count - 2 ? stringArray[index + 2] : "a"
 
-            if character >= "!" && character <= "~" {
-                singleChardictionary[String(character), default: 0] += 1
+            if firstCharacter >= "!" && firstCharacter <= "~" {
+
+                singleChardictionary[String(firstCharacter), default: 0] += 1
+
+                if index < stringArray.count - 1 && secondCharacter >= "!" && secondCharacter <= "~" {
+
+                    doubleChardictionary[String([firstCharacter, secondCharacter]), default: 0] += 1
+
+                    if index < stringArray.count - 2 && thirdCharacter >= "!" && thirdCharacter <= "~" {
+
+                        tripleChardictionary[String([firstCharacter, secondCharacter, thirdCharacter]), default: 0] += 1
+
+                    }
+                }
             }
+
 
             index += 1
         }
 
-        let sortedArr = sortDictionary(singleChardictionary)
-        fileStats.ligatures1Character = sortedArr
-    }
-
-    func doubleCharacterAnalysis(_ fileStats: FileStats) {
-        var singleChardictionary: [String: Int] = [:]
-
-        let stringArray = Array(fileStats.dataString)
-        var index = 0
-        while index < stringArray.count - 1{
-            let character = stringArray[index]
-            let nextCharacter = stringArray[index + 1]
-
-            if character >= "!" && character <= "~" && nextCharacter >= "!" && nextCharacter <= "~" {
-                singleChardictionary[String([character, nextCharacter]), default: 0] += 1
-            }
-
-            index += 1
-        }
-        
-        let sortedArr = sortDictionary(singleChardictionary)
-        fileStats.ligatures2Character = sortedArr
-    }
-
-    func tripleCharacterAnalysis(_ fileStats: FileStats) {
-        var singleChardictionary: [String: Int] = [:]
-
-        let stringArray = Array(fileStats.dataString)
-        var index = 0
-        while index < stringArray.count - 2{
-            let character = stringArray[index]
-            let secondCharacter = stringArray[index + 1]
-            let thirdCharacter = stringArray[index + 2]
-
-            if character >= "!" && character <= "~" && secondCharacter >= "!" && secondCharacter <= "~" && thirdCharacter >= "!" && thirdCharacter <= "~" {
-                singleChardictionary[String([character, secondCharacter, thirdCharacter]), default: 0] += 1
-            }
-
-            index += 1
-        }
-
-        let sortedArr = sortDictionary(singleChardictionary)
-        fileStats.ligatures3Character = sortedArr
-        print(sortedArr)
-
+        fileStats.ligatures1Character = sortDictionary(singleChardictionary)
+        fileStats.ligatures2Character = sortDictionary(doubleChardictionary)
+        fileStats.ligatures3Character = sortDictionary(tripleChardictionary)
     }
 
     func sortDictionary(_ dictionary: [String: Int]) -> [(String, Int)] {

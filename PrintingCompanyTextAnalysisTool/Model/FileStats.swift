@@ -21,7 +21,6 @@ class FileStats: ObservableObject {
 
     //  a frequency analysis of the top-20 most common consecutive one-character,
     //  two-character, and three-character patterns.
-    var wordsDictionary: [String: Int] = [:]
     var ligatures1Character: [(String, Int)] = []
     var ligatures2Character: [(String, Int)] = []
     var ligatures3Character: [(String, Int)] = []
