@@ -10,10 +10,10 @@ import SwiftUI
 
 struct ChartsSwiftUIView: View {
     @ObservedObject var fileStats: FileStats
+    @State var characterPickerSelectedItem = 0
+
     let maxWidth: CGFloat = 230
     let height: CGFloat = 10
-
-    @State var characterPickerSelectedItem = 0
 
 
 
@@ -33,26 +33,29 @@ struct ChartsSwiftUIView: View {
                         ForEach(0..<fileStats.ligatures1Character.count) {
                             BarView(characters: self.fileStats.ligatures1Character[$0].0,
                                     count: self.fileStats.ligatures1Character[$0].1,
-                                    widthValue: CGFloat(self.fileStats.ligatures1Character[$0].1 * (230 / self.fileStats.ligatures1Character[0].1))
+                                    widthValue: self.getwidthValue($0)
                             )
-
-
                         }
                     }
-
-
                 }
 
             }
             .navigationBarTitle(fileStats.name)
         }
     }
+
+    private func getwidthValue(_ index: Int) -> CGFloat {
+        let ligaturesCharacter = self.fileStats.ligatures1Character[index]
+        let ligaturesCharacterCount = ligaturesCharacter.1
+
+        let widthValue = Float(ligaturesCharacterCount) * Float(Float(230) / Float(self.fileStats.ligatures1Character[0].1))
+        return CGFloat(widthValue)
+    }
 }
 
 struct BarView: View {
     let maxWidth: CGFloat = 230
     let height: CGFloat = 10
-
     var characters: String
     var count: Int
     var widthValue: CGFloat
@@ -66,14 +69,11 @@ struct BarView: View {
             }
             Text("\(Int(count))")
         }
-
     }
-
 }
 
 struct ChartsSwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-
         ChartsSwiftUIView(fileStats: FileStats(url: URL(string: "url.com")!, dataString: "String", name: "textfile1.txt"))
     }
 }
