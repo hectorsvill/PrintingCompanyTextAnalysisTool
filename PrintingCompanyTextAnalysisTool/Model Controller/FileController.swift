@@ -13,7 +13,6 @@ class FileControrller {
 
     func addFile(_ fileStats: FileStats) {
         fileStatsList.append(fileStats)
-        performFrequencyAnalysis(fileStats)
     }
 
     func removeFile(_ index: Int) {
@@ -29,17 +28,13 @@ class FileControrller {
         fileStats.timeToAnalyze = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
     }
 
-
     func singleCharacterAnalysis(_ fileStats: FileStats) {
         var singleChardictionary: [String: Int] = [:]
-        let dataString = fileStats.dataString
 
-
-        dataString.forEach {
+        fileStats.dataString.forEach {
             if $0 >= "!" && $0 <= "~" {
                 singleChardictionary[String($0), default: 0] += 1
             }
-
         }
 
         let sortedArr = sortDictionary(singleChardictionary)
@@ -47,6 +42,9 @@ class FileControrller {
     }
 
     func doubleCharacterAnalysis(_ fileStats: FileStats) {
+    }
+
+    func tripleCharacterAnalysis(_ fileStats: FileStats) {
     }
 
     func sortDictionary(_ dictionary: [String: Int]) -> [(String, Int)] {
@@ -66,5 +64,4 @@ class FileControrller {
 
         return values
     }
-
 }

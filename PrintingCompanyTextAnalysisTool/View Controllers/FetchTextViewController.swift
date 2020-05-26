@@ -10,10 +10,8 @@ import UIKit
 import SwiftUI
 
 class FetchTextViewController: UIViewController {
-
     @IBOutlet weak var newInputButtonFileButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-
     private var fileController = FileControrller()
 
     override func viewDidLoad() {
@@ -60,7 +58,6 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
                 self.present(alertController, animated:  true)
             }
         }
-
     }
 }
 
@@ -94,7 +91,6 @@ extension FetchTextViewController: UITableViewDelegate {
 }
 
 extension FetchTextViewController: UITableViewDataSource {
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return fileController.fileStatsList.count
     }

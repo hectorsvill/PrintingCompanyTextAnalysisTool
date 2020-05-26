@@ -11,12 +11,8 @@ import SwiftUI
 struct ChartsSwiftUIView: View {
     @ObservedObject var fileStats: FileStats
     @State var characterPickerSelectedItem = 0
-
     let maxWidth: CGFloat = 230
     let height: CGFloat = 10
-
-
-
 
     var body: some View {
         NavigationView {
