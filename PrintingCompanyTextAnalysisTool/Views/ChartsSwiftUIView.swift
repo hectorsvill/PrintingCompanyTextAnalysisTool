@@ -9,15 +9,16 @@
 import SwiftUI
 
 struct ChartsSwiftUIView: View {
-    var fileStats: FileStats?
+    @ObservedObject var fileStats: FileStats
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("This: \(fileStats.name)")
     }
 }
 
 struct ChartsSwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartsSwiftUIView()
+
+        ChartsSwiftUIView(fileStats: FileStats(url: URL(string: "url.com")!, dataString: "String", name: "textfile1.txt"))
     }
 }

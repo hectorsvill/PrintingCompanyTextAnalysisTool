@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class FetchTextViewController: UIViewController {
 
@@ -83,6 +84,14 @@ extension FetchTextViewController: UITableViewDelegate {
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             present(cancelProcessAlertController, animated: true)
+
+        } else {
+            let swiftUIView = ChartsSwiftUIView(fileStats: currentFile)
+            let viewController = UIHostingController(rootView: swiftUIView)
+
+            present(viewController, animated: true)
+
+
 
         }
     }

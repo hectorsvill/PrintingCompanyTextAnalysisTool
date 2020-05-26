@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FileStats {
+class FileStats: ObservableObject {
     let url: URL
     let dataString: String
     let name: String
