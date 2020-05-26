@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1258478A247CB5C900FC17E5 /* ChartsSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12584789247CB5C900FC17E5 /* ChartsSwiftUIView.swift */; };
 		12C82D13247B14D000C4AF31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D12247B14D000C4AF31 /* AppDelegate.swift */; };
 		12C82D15247B14D000C4AF31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D14247B14D000C4AF31 /* SceneDelegate.swift */; };
 		12C82D1A247B14D000C4AF31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12C82D18247B14D000C4AF31 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		12584788247C3C8B00FC17E5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		12584789247CB5C900FC17E5 /* ChartsSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsSwiftUIView.swift; sourceTree = "<group>"; };
 		12C82D0F247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrintingCompanyTextAnalysisTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12C82D12247B14D000C4AF31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12C82D14247B14D000C4AF31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1258478B247CB5DD00FC17E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12584789247CB5C900FC17E5 /* ChartsSwiftUIView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		12C82D06247B14D000C4AF31 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 				12C82D28247B152000C4AF31 /* View Controllers */,
 				12C82D30247B2E3300C4AF31 /* Model */,
 				12C82D33247B60B800C4AF31 /* Model Controller */,
+				1258478B247CB5DD00FC17E5 /* Views */,
 				12C82D18247B14D000C4AF31 /* Main.storyboard */,
 				12C82D1B247B14D200C4AF31 /* Assets.xcassets */,
 				12C82D1D247B14D200C4AF31 /* LaunchScreen.storyboard */,
@@ -193,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12C82D13247B14D000C4AF31 /* AppDelegate.swift in Sources */,
+				1258478A247CB5C900FC17E5 /* ChartsSwiftUIView.swift in Sources */,
 				12C82D2F247B2DAC00C4AF31 /* FileStats.swift in Sources */,
 				12C82D27247B150F00C4AF31 /* FetchTextViewController.swift in Sources */,
 				12C82D32247B607000C4AF31 /* FileController.swift in Sources */,

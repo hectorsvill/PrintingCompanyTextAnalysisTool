@@ -14,7 +14,6 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var fileController = FileControrller()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,6 @@ class FetchTextViewController: UIViewController {
 
     private func configureViews() {
         newInputButtonFileButton.layer.cornerRadius = 17
-
     }
 
     @IBAction func newInputButtonFileButtonPressed(_ sender: Any) {
@@ -48,9 +46,8 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let name = url.absoluteString.split(separator: "/").last!
             let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
             self.fileController.addFile(fileStats)
-            // start download here
+            // start anylysis
 //            self.fileController.performFrequencyAnalysis(fileStats)
-
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -76,13 +73,12 @@ extension FetchTextViewController: UITableViewDelegate {
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
-                print("stop  \(currentFile.name) from processing and remove")
 
                 self.fileController.removeFile(indexPath.section)
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-
             })
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
