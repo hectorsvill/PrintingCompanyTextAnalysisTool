@@ -46,7 +46,7 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
             self.fileController.addFile(fileStats)
             // start anylysis
-//            self.fileController.performFrequencyAnalysis(fileStats)
+            self.fileController.performFrequencyAnalysis(fileStats)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

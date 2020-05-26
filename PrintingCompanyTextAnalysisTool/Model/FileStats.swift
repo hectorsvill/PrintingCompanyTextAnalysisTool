@@ -26,6 +26,10 @@ class FileStats: ObservableObject {
     var ligatures2Character: [(String, Int)] = []
     var ligatures3Character: [(String, Int)] = []
 
+    var chart: [[(String, Int)]] {
+        return [ligatures1Character, ligatures2Character, ligatures3Character]
+    }
+
     var timeToAnalyze: Double? = nil {
         didSet { self.analysisComplete.toggle()}
     }

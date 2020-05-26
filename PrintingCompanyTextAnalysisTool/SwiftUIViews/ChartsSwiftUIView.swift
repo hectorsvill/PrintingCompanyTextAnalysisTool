@@ -26,9 +26,11 @@ struct ChartsSwiftUIView: View {
                     }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
 
                     VStack (spacing: 8) {
-                        ForEach(0..<fileStats.ligatures1Character.count) {
-                            BarView(characters: self.fileStats.ligatures1Character[$0].0,
-                                    count: self.fileStats.ligatures1Character[$0].1,
+
+                        ForEach(0..<fileStats.chart[characterPickerSelectedItem].count) {
+
+                            BarView(characters: self.fileStats.chart[self.characterPickerSelectedItem][$0].0,
+                                    count: self.fileStats.chart[self.characterPickerSelectedItem][$0].1,
                                     widthValue: self.getwidthValue($0)
                             )
                         }
@@ -41,10 +43,11 @@ struct ChartsSwiftUIView: View {
     }
 
     private func getwidthValue(_ index: Int) -> CGFloat {
-        let ligaturesCharacter = self.fileStats.ligatures1Character[index]
+//        print(characterPickerSelectedItem)
+        let ligaturesCharacter = self.fileStats.chart[characterPickerSelectedItem][index]
         let ligaturesCharacterCount = ligaturesCharacter.1
 
-        let widthValue = Float(ligaturesCharacterCount) * Float(Float(230) / Float(self.fileStats.ligatures1Character[0].1))
+        let widthValue = Float(ligaturesCharacterCount) * Float(Float(230) / Float(self.fileStats.chart[characterPickerSelectedItem][0].1))
         return CGFloat(widthValue)
     }
 }
