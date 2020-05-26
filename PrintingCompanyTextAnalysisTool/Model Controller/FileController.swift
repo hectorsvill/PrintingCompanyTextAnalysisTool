@@ -24,7 +24,7 @@ class FileControrller {
         let timer1 = Date()
 
         characterAnalysis(fileStats)
-        
+
         let timer2 = Date()
         fileStats.timeToAnalyze = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
     }
@@ -39,8 +39,8 @@ class FileControrller {
 
         while index < stringArray.count{
             let firstCharacter = stringArray[index]
-            let secondCharacter = index < stringArray.count - 1 ? stringArray[index + 1] : "a"
-            let thirdCharacter = index < stringArray.count - 2 ? stringArray[index + 2] : "a"
+            let secondCharacter: String.Element! = index < stringArray.count - 1 ? stringArray[index + 1] : nil
+            let thirdCharacter: String.Element! = index < stringArray.count - 2 ? stringArray[index + 2] : nil
 
             if firstCharacter >= "!" && firstCharacter <= "~" {
 

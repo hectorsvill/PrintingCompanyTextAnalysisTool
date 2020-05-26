@@ -43,10 +43,8 @@ struct ChartsSwiftUIView: View {
     }
 
     private func getwidthValue(_ index: Int) -> CGFloat {
-//        print(characterPickerSelectedItem)
         let ligaturesCharacter = self.fileStats.chart[characterPickerSelectedItem][index]
         let ligaturesCharacterCount = ligaturesCharacter.1
-
         let widthValue = Float(ligaturesCharacterCount) * Float(Float(230) / Float(self.fileStats.chart[characterPickerSelectedItem][0].1))
         return CGFloat(widthValue)
     }
