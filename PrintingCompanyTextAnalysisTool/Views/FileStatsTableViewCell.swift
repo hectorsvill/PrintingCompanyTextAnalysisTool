@@ -9,20 +9,15 @@
 import UIKit
 
 class FileStatsTableViewCell: UITableViewCell {
-    var fileStats: FileStats!
+    var fileStats: FileStats? { didSet { configureViews() }}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
+    private func configureViews() {
+        print("didset")
+        guard let fileStats = fileStats else { return }
 
         textLabel?.text =  fileStats.analysisComplete ? "Complete" : "In Progress ..."
         textLabel?.font = .systemFont(ofSize: 11)
         textLabel?.textColor = .systemGray
         detailTextLabel?.text = fileStats.analysisComplete ? String(format: "Time: %0.5F", fileStats.timeToAnalyze ?? 0) : ""
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
 }

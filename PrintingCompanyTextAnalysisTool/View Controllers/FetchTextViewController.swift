@@ -56,8 +56,8 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let dataString = try String(contentsOf: url, encoding: .utf8)
             let name = url.absoluteString.split(separator: "/").last!
             let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
-            self.fileController.addFile(fileStats)
             DispatchQueue.main.async {
+                self.fileController.addFile(fileStats)
                 self.tableView.reloadData()
             }
 
@@ -89,7 +89,7 @@ extension FetchTextViewController: UITableViewDataSource {
 
         let fileStats = fileController.fileStatsList[indexPath.section]
         cell.fileStats = fileStats
-        self.loadChart(with: cell, indexPath: indexPath)
+//        self.loadChart(with: cell, indexPath: indexPath)
 
         return cell
     }
@@ -107,7 +107,7 @@ extension FetchTextViewController: UITableViewDelegate {
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
-                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
+//                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
                 self.fileController.removeFile(indexPath.section)
 
                 DispatchQueue.main.async {
