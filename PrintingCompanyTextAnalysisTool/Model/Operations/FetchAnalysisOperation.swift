@@ -20,6 +20,7 @@ class FetchAnalysisOperation: ConcurrentOperation {
     override func start() {
         state = .isExecuting
         performFrequencyAnalysis(fileStats)
+        fileStats.analysisComplete = true
         state = .isFinished
 
     }

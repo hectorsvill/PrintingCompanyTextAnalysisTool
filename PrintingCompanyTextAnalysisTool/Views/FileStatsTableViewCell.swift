@@ -11,8 +11,7 @@ import UIKit
 class FileStatsTableViewCell: UITableViewCell {
     var fileStats: FileStats? { didSet { configureViews() }}
 
-    private func configureViews() {
-        print("didset")
+    func configureViews() {
         guard let fileStats = fileStats else { return }
 
         textLabel?.text =  fileStats.analysisComplete ? "Complete" : "In Progress ..."

@@ -9,7 +9,7 @@
 import Foundation
 
 class FileControrller {
-    private (set) var fileStatsList = [FileStats]()
+    var fileStatsList = [FileStats]()
 
     func addFile(_ fileStats: FileStats) {
         fileStatsList.append(fileStats)

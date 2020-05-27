@@ -14,7 +14,7 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var fileController = FileControrller()
 
-    private let frequencyAnalysisOperation = OperationQueue()
+    private let frequencyAnalysisQueue = OperationQueue()
     private var frequencyAnalysisOperations = [Int: FetchAnalysisOperation]()
     private let cache = Cache<Int, FileStats>()
 
@@ -25,7 +25,7 @@ class FetchTextViewController: UIViewController {
     }
 
     private func configureViews() {
-        frequencyAnalysisOperation.name = "com.hectorstevenvillasano.PrintingCompanyTextAnalysisTool.frequencyAnalysisOperation"
+        frequencyAnalysisQueue.name = "com.hectorstevenvillasano.PrintingCompanyTextAnalysisTool.frequencyAnalysisOperation"
         newInputButtonFileButton.layer.cornerRadius = 17
     }
 
@@ -37,10 +37,39 @@ class FetchTextViewController: UIViewController {
     }
 
     private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
-        if let fileStats = cache.value(for: indexPath.section) {
-
+        if let fileStats = cache.value(for: indexPath.section), fileStats.analysisComplete{
+            self.fileController.fileStatsList[indexPath.section] = fileStats
+//            tableView.reloadData()
+            return
         }
 
+
+        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileController.fileStatsList[indexPath.section])
+
+        let storeFileStatsInCache = BlockOperation {
+            self.cache.cache(value: fetchAnalysisOperation.fileStats, for: indexPath.section)
+        }
+
+
+        let checkForReusedCell = BlockOperation {
+            if self.tableView.indexPath(for: cell) == indexPath {
+//                if let fileStatsCell = self.tableView.cellForRow(at: indexPath) as? FileStatsTableViewCell {
+                    DispatchQueue.main.async {
+//                        print(fetchAnalysisOperation.fileStats.chart)
+//                        fileStatsCell.fileStats = fetchAnalysisOperation.fileStats
+                        self.fileController.fileStatsList[indexPath.section] = fetchAnalysisOperation.fileStats
+                        self.tableView.reloadData()
+                    }
+//                }
+            }
+        }
+
+        storeFileStatsInCache.addDependency(fetchAnalysisOperation)
+        checkForReusedCell.addDependency(fetchAnalysisOperation)
+
+        frequencyAnalysisQueue.addOperations([fetchAnalysisOperation, storeFileStatsInCache], waitUntilFinished: false)
+        OperationQueue.main.addOperation(checkForReusedCell)
+        frequencyAnalysisOperations[indexPath.section] = fetchAnalysisOperation
     }
 }
 
@@ -89,8 +118,7 @@ extension FetchTextViewController: UITableViewDataSource {
 
         let fileStats = fileController.fileStatsList[indexPath.section]
         cell.fileStats = fileStats
-//        self.loadChart(with: cell, indexPath: indexPath)
-
+        self.loadChart(with: cell, indexPath: indexPath)
         return cell
     }
 
@@ -107,7 +135,7 @@ extension FetchTextViewController: UITableViewDelegate {
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
-//                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
+                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
                 self.fileController.removeFile(indexPath.section)
 
                 DispatchQueue.main.async {
