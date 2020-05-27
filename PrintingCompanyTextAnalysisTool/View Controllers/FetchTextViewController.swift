@@ -136,10 +136,11 @@ extension FetchTextViewController: UITableViewDelegate {
                 guard let self = self else { return }
                 // stop process
                 self.frequencyAnalysisOperations[indexPath.section]!.cancel()
+                self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
                 self.fileController.removeFile(indexPath.section)
 
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self.tableView.reloadSections([indexPath.section], with: .automatic)
                 }
             })
 
