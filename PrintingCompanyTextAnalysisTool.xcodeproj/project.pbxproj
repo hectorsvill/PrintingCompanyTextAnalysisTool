@@ -17,6 +17,7 @@
 		12C82D2D247B1D7C00C4AF31 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C82D2C247B1D7C00C4AF31 /* CloudKit.framework */; };
 		12C82D2F247B2DAC00C4AF31 /* FileStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D2E247B2DAC00C4AF31 /* FileStats.swift */; };
 		12C82D32247B607000C4AF31 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C82D31247B607000C4AF31 /* FileController.swift */; };
+		12FD413F247E0CDF006281C8 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD413E247E0CDF006281C8 /* ConcurrentOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		12C82D2C247B1D7C00C4AF31 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		12C82D2E247B2DAC00C4AF31 /* FileStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStats.swift; sourceTree = "<group>"; };
 		12C82D31247B607000C4AF31 /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
+		12FD413E247E0CDF006281C8 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				12C82D2E247B2DAC00C4AF31 /* FileStats.swift */,
+				12FD4140247E0CE8006281C8 /* Operations */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,6 +133,14 @@
 				12C82D31247B607000C4AF31 /* FileController.swift */,
 			);
 			path = "Model Controller";
+			sourceTree = "<group>";
+		};
+		12FD4140247E0CE8006281C8 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				12FD413E247E0CDF006281C8 /* ConcurrentOperation.swift */,
+			);
+			path = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +217,7 @@
 				12C82D13247B14D000C4AF31 /* AppDelegate.swift in Sources */,
 				1258478A247CB5C900FC17E5 /* ChartsSwiftUIView.swift in Sources */,
 				12C82D2F247B2DAC00C4AF31 /* FileStats.swift in Sources */,
+				12FD413F247E0CDF006281C8 /* ConcurrentOperation.swift in Sources */,
 				12C82D27247B150F00C4AF31 /* FetchTextViewController.swift in Sources */,
 				12C82D32247B607000C4AF31 /* FileController.swift in Sources */,
 				12C82D15247B14D000C4AF31 /* SceneDelegate.swift in Sources */,

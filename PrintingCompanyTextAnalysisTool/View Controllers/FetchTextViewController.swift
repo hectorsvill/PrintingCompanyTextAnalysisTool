@@ -30,6 +30,12 @@ class FetchTextViewController: UIViewController {
         documentPicker.allowsMultipleSelection = false
         present(documentPicker, animated: true, completion: nil)
     }
+
+    private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
+        print(indexPath.section)
+        fileController.characterAnalysis(fileController.fileStatsList[indexPath.section])
+
+    }
 }
 
 extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate {
@@ -45,8 +51,6 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let name = url.absoluteString.split(separator: "/").last!
             let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
             self.fileController.addFile(fileStats)
-            // start anylysis
-            self.fileController.performFrequencyAnalysis(fileStats)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -71,7 +75,7 @@ extension FetchTextViewController: UITableViewDelegate {
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
-
+                // stop process
                 self.fileController.removeFile(indexPath.section)
 
                 DispatchQueue.main.async {
@@ -112,6 +116,7 @@ extension FetchTextViewController: UITableViewDataSource {
         cell.textLabel?.font = .systemFont(ofSize: 11)
         cell.textLabel?.textColor = .systemGray
         cell.detailTextLabel?.text = currentFile.analysisComplete ? String(format: "Time: %0.5F", currentFile.timeToAnalyze ?? 0) : ""
+        self.loadChart(with: cell, indexPath: indexPath)
         return cell
     }
 
