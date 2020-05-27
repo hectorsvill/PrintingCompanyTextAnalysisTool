@@ -12,7 +12,7 @@ import SwiftUI
 class FetchTextViewController: UIViewController {
     @IBOutlet weak var newInputButtonFileButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    private var fileController = FileControrller()
+    private var fileStatsList = [FileStats]()
 
     private let frequencyAnalysisQueue = OperationQueue()
     private var frequencyAnalysisOperations = [Int: FetchAnalysisOperation]()
@@ -37,30 +37,23 @@ class FetchTextViewController: UIViewController {
     }
 
     private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
-        if let fileStats = cache.value(for: indexPath.section), fileStats.analysisComplete{
-            self.fileController.fileStatsList[indexPath.section] = fileStats
-//            tableView.reloadData()
+        if let fileStats = cache.value(for: indexPath.section), fileStats.analysisComplete {
+            self.fileStatsList[indexPath.section] = fileStats
             return
         }
 
-
-        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileController.fileStatsList[indexPath.section])
+        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileStatsList[indexPath.section])
 
         let storeFileStatsInCache = BlockOperation {
             self.cache.cache(value: fetchAnalysisOperation.fileStats, for: indexPath.section)
         }
 
-
         let checkForReusedCell = BlockOperation {
             if self.tableView.indexPath(for: cell) == indexPath {
-//                if let fileStatsCell = self.tableView.cellForRow(at: indexPath) as? FileStatsTableViewCell {
-                    DispatchQueue.main.async {
-//                        print(fetchAnalysisOperation.fileStats.chart)
-//                        fileStatsCell.fileStats = fetchAnalysisOperation.fileStats
-                        self.fileController.fileStatsList[indexPath.section] = fetchAnalysisOperation.fileStats
-                        self.tableView.reloadData()
-                    }
-//                }
+                DispatchQueue.main.async {
+                    self.fileStatsList[indexPath.section] = fetchAnalysisOperation.fileStats
+                    self.tableView.reloadData()
+                }
             }
         }
 
@@ -86,7 +79,7 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let name = url.absoluteString.split(separator: "/").last!
             let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
             DispatchQueue.main.async {
-                self.fileController.addFile(fileStats)
+                self.fileStatsList.append(fileStats)
                 self.tableView.reloadData()
             }
 
@@ -102,7 +95,7 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
 
 extension FetchTextViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fileController.fileStatsList.count
+        return fileStatsList.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,13 +103,13 @@ extension FetchTextViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fileController.fileStatsList[section].name
+        return fileStatsList[section].name
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as? FileStatsTableViewCell else { return UITableViewCell()}
 
-        let fileStats = fileController.fileStatsList[indexPath.section]
+        let fileStats = fileStatsList[indexPath.section]
         cell.fileStats = fileStats
         self.loadChart(with: cell, indexPath: indexPath)
         return cell
@@ -128,16 +121,16 @@ extension FetchTextViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let currentFile = fileController.fileStatsList[indexPath.section]
-        if !currentFile.analysisComplete {
-            let cancelProcessAlertController = UIAlertController(title: "Stop Processing", message: currentFile.name, preferredStyle: .alert)
+        let fileStats = fileStatsList[indexPath.section]
+        if !fileStats.analysisComplete {
+            let cancelProcessAlertController = UIAlertController(title: "Stop Processing", message: fileStats.name, preferredStyle: .alert)
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
                 self.frequencyAnalysisOperations[indexPath.section]!.cancel()
                 self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
-                self.fileController.removeFile(indexPath.section)
+                self.fileStatsList.remove(at: indexPath.section)
 
                 DispatchQueue.main.async {
                     self.tableView.reloadSections([indexPath.section], with: .automatic)
@@ -148,7 +141,7 @@ extension FetchTextViewController: UITableViewDelegate {
             present(cancelProcessAlertController, animated: true)
 
         } else {
-            let swiftUIView = ChartsSwiftUIView(fileStats: currentFile)
+            let swiftUIView = ChartsSwiftUIView(fileStats: fileStats)
             let viewController = UIHostingController(rootView: swiftUIView)
             present(viewController, animated: true)
         }

@@ -19,8 +19,15 @@ class FetchAnalysisOperation: ConcurrentOperation {
 
     override func start() {
         state = .isExecuting
-        performFrequencyAnalysis(fileStats)
+
+        let timer1 = Date()
+
+        characterAnalysis(fileStats)
+
+        fileStats.timeToAnalyze = Date().timeIntervalSince1970 - timer1.timeIntervalSince1970
+
         fileStats.analysisComplete = true
+
         state = .isFinished
 
     }
@@ -34,15 +41,6 @@ class FetchAnalysisOperation: ConcurrentOperation {
 }
 
 extension FetchAnalysisOperation {
-    func performFrequencyAnalysis(_ fileStats: FileStats) {
-        let timer1 = Date()
-
-        characterAnalysis(fileStats)
-
-        let timer2 = Date()
-        fileStats.timeToAnalyze = timer2.timeIntervalSince1970 - timer1.timeIntervalSince1970
-    }
-
     private func characterAnalysis(_ fileStats: FileStats) {
         var singleChardictionary: [String: Int] = [:]
         var doubleChardictionary: [String: Int] = [:]
