@@ -148,15 +148,15 @@ extension FetchTextViewController: UITableViewDelegate {
         }
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let section = indexPath.section
-            frequencyAnalysisOperations.removeValue(forKey: section)
-            fileStatsList.remove(at: section)
-            frequencyAnalysisOperations.removeValue(forKey:section)
-            self.tableView.reloadData()
-
-        }
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let section = indexPath.section
+//            frequencyAnalysisOperations.removeValue(forKey: section)
+//            fileStatsList.remove(at: section)
+//            frequencyAnalysisOperations.removeValue(forKey:section)
+//            self.tableView.reloadData()
+//
+//        }
+//    }
 }
 
