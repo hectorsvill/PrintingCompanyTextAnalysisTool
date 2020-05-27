@@ -14,6 +14,10 @@ class FetchTextViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var fileController = FileControrller()
 
+    private let frequencyAnalysisOperation = OperationQueue()
+    private var frequencyAnalysisOperations = [Int: FetchAnalysisOperation]()
+    private let cache = Cache<Int, FileStats>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +25,7 @@ class FetchTextViewController: UIViewController {
     }
 
     private func configureViews() {
+        frequencyAnalysisOperation.name = "com.hectorstevenvillasano.PrintingCompanyTextAnalysisTool.frequencyAnalysisOperation"
         newInputButtonFileButton.layer.cornerRadius = 17
     }
 
@@ -32,8 +37,9 @@ class FetchTextViewController: UIViewController {
     }
 
     private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
-        print(indexPath.section)
-        fileController.characterAnalysis(fileController.fileStatsList[indexPath.section])
+        if let fileStats = cache.value(for: indexPath.section) {
+
+        }
 
     }
 }
@@ -65,6 +71,31 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
     }
 }
 
+extension FetchTextViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fileController.fileStatsList.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return fileController.fileStatsList[section].name
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as? FileStatsTableViewCell else { return UITableViewCell()}
+
+        let fileStats = fileController.fileStatsList[indexPath.section]
+        cell.fileStats = fileStats
+        self.loadChart(with: cell, indexPath: indexPath)
+
+        return cell
+    }
+
+}
+
 extension FetchTextViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -76,6 +107,7 @@ extension FetchTextViewController: UITableViewDelegate {
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
+                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
                 self.fileController.removeFile(indexPath.section)
 
                 DispatchQueue.main.async {
@@ -94,30 +126,3 @@ extension FetchTextViewController: UITableViewDelegate {
     }
 }
 
-extension FetchTextViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fileController.fileStatsList.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fileController.fileStatsList[section].name
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath)
-
-        let currentFile = fileController.fileStatsList[indexPath.section]
-        
-        cell.textLabel?.text =  currentFile.analysisComplete ? "Complete" : "In Progress ..."
-        cell.textLabel?.font = .systemFont(ofSize: 11)
-        cell.textLabel?.textColor = .systemGray
-        cell.detailTextLabel?.text = currentFile.analysisComplete ? String(format: "Time: %0.5F", currentFile.timeToAnalyze ?? 0) : ""
-        self.loadChart(with: cell, indexPath: indexPath)
-        return cell
-    }
-
-}
