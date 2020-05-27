@@ -130,10 +130,10 @@ extension FetchTextViewController: UITableViewDelegate {
                 // stop process
                 self.frequencyAnalysisOperations[indexPath.section]!.cancel()
                 self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
-                self.fileStatsList.remove(at: indexPath.section)
 
                 DispatchQueue.main.async {
-                    self.tableView.reloadSections([indexPath.section], with: .automatic)
+                    self.fileStatsList.remove(at: indexPath.section)
+                    self.tableView.deleteSections([indexPath.section], with: .automatic)
                 }
             })
 

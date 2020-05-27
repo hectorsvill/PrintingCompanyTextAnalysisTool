@@ -18,6 +18,7 @@ class FetchAnalysisOperation: ConcurrentOperation {
 
 
     override func start() {
+        
         state = .isExecuting
 
         let timer1 = Date()

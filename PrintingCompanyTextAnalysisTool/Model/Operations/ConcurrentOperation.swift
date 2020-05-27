@@ -11,7 +11,7 @@ class ConcurrentOperation: Operation {
     private let stateQueue = DispatchQueue(label: "com.hectorstevenvillasano.PrintingCompanyTextAnalysisTool.ConcurrentOperation")
 
     enum State: String {
-        case isReady, isExecuting, isFinished
+        case isReady, isExecuting, isFinished, isCancelled
     }
 
     private var _state = State.isReady
@@ -54,6 +54,9 @@ extension ConcurrentOperation {
 
     override dynamic var isFinished: Bool {
         state == .isFinished
+    }
+    override dynamic var isCancelled: Bool {
+        state == .isCancelled
     }
 
     override var isAsynchronous: Bool {
