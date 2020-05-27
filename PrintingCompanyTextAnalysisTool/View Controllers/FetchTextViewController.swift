@@ -36,22 +36,22 @@ class FetchTextViewController: UIViewController {
         present(documentPicker, animated: true, completion: nil)
     }
 
-    private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
-        if let fileStats = cache.value(for: indexPath.section), fileStats.analysisComplete {
+    private func loadChart(_ section: Int) {
+        if let fileStats = cache.value(for: section), fileStats.analysisComplete {
             return
         }
 
-        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileStatsList[indexPath.section])
+        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileStatsList[section])
 
         let storeFileStatsInCache = BlockOperation {
-            self.cache.cache(value: fetchAnalysisOperation.fileStats, for: indexPath.section)
+            self.cache.cache(value: fetchAnalysisOperation.fileStats, for: section)
         }
 
         let checkForReusedCell = BlockOperation {
-            if self.tableView.indexPath(for: cell) == indexPath {
+            if fetchAnalysisOperation.fileStats.index == section {
                 DispatchQueue.main.async {
-                    self.fileStatsList[indexPath.section] = fetchAnalysisOperation.fileStats
-                    self.tableView.reloadSections([indexPath.section], with: .automatic)
+                    self.fileStatsList[section] = fetchAnalysisOperation.fileStats
+                    self.tableView.reloadSections([section], with: .automatic)
                 }
             }
         }
@@ -61,7 +61,7 @@ class FetchTextViewController: UIViewController {
 
         frequencyAnalysisQueue.addOperations([fetchAnalysisOperation, storeFileStatsInCache], waitUntilFinished: false)
         OperationQueue.main.addOperation(checkForReusedCell)
-        frequencyAnalysisOperations[indexPath.section] = fetchAnalysisOperation
+        frequencyAnalysisOperations[section] = fetchAnalysisOperation
     }
 }
 
@@ -76,9 +76,10 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
         do {
             let dataString = try String(contentsOf: url, encoding: .utf8)
             let name = url.absoluteString.split(separator: "/").last!
-            let fileStats = FileStats(url: url, dataString: dataString, name: String(name))
+            let fileStats = FileStats(index: fileStatsList.count,url: url, dataString: dataString, name: String(name))
             DispatchQueue.main.async {
                 self.fileStatsList.append(fileStats)
+                self.loadChart(self.fileStatsList.count - 1)
                 self.tableView.reloadData()
             }
 
@@ -110,7 +111,7 @@ extension FetchTextViewController: UITableViewDataSource {
 
         let fileStats = fileStatsList[indexPath.section]
         cell.fileStats = fileStats
-        self.loadChart(with: cell, indexPath: indexPath)
+//        self.loadChart(with: cell, indexPath: indexPath)
         return cell
     }
 
@@ -127,13 +128,15 @@ extension FetchTextViewController: UITableViewDelegate {
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
-                self.frequencyAnalysisOperations[indexPath.section]!.cancel()
-                self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
-
-                DispatchQueue.main.async {
-                    self.fileStatsList.remove(at: indexPath.section)
-                    self.tableView.deleteSections([indexPath.section], with: .automatic)
+                if let frequencyAnalysisOperation = self.frequencyAnalysisOperations[indexPath.section] {
+                    frequencyAnalysisOperation.cancel()
+//                    self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
+                    DispatchQueue.main.async {
+//                        self.fileStatsList.remove(at: indexPath.section)
+                        self.tableView.reloadData()
+                    }
                 }
+
             })
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))

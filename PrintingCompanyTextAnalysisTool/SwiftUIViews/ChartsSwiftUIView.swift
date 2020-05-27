@@ -71,6 +71,6 @@ struct BarView: View {
 
 struct ChartsSwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartsSwiftUIView(fileStats: FileStats(url: URL(string: "url.com")!, dataString: "String", name: "textfile1.txt"))
+        ChartsSwiftUIView(fileStats: FileStats(index: 0 ,url: URL(string: "url.com")!, dataString: "String", name: "textfile1.txt"))
     }
 }

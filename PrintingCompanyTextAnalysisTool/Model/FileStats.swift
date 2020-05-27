@@ -9,12 +9,13 @@
 import Foundation
 
 class FileStats: ObservableObject {
-    let id = UUID()
+    let index: Int //0 based
     let url: URL
     let dataString: String
     let name: String
 
-    init(url: URL, dataString: String, name: String) {
+    init(index: Int, url: URL, dataString: String, name: String) {
+        self.index = index
         self.url = url
         self.dataString = dataString
         self.name = name
