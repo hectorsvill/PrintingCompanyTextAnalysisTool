@@ -122,6 +122,7 @@ extension FetchTextViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let fileStats = fileStatsList[indexPath.section]
+
         if !fileStats.analysisComplete {
             let cancelProcessAlertController = UIAlertController(title: "Stop Processing", message: fileStats.name, preferredStyle: .alert)
 
@@ -130,10 +131,8 @@ extension FetchTextViewController: UITableViewDelegate {
                 // stop process
                 if let frequencyAnalysisOperation = self.frequencyAnalysisOperations[indexPath.section] {
                     frequencyAnalysisOperation.cancel()
-//                    self.frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
                     DispatchQueue.main.async {
-//                        self.fileStatsList.remove(at: indexPath.section)
-                        self.tableView.reloadData()
+                        self.tableView.reloadSections([indexPath.section], with: .automatic)
                     }
                 }
 
@@ -146,6 +145,17 @@ extension FetchTextViewController: UITableViewDelegate {
             let swiftUIView = ChartsSwiftUIView(fileStats: fileStats)
             let viewController = UIHostingController(rootView: swiftUIView)
             present(viewController, animated: true)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let section = indexPath.section
+            frequencyAnalysisOperations.removeValue(forKey: section)
+            fileStatsList.remove(at: section)
+            frequencyAnalysisOperations.removeValue(forKey:section)
+            self.tableView.reloadData()
+
         }
     }
 }
