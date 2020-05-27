@@ -9,6 +9,7 @@
 import Foundation
 
 class FileStats: ObservableObject {
+    let id = UUID()
     let url: URL
     let dataString: String
     let name: String

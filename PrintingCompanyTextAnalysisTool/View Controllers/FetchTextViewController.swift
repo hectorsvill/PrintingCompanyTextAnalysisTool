@@ -38,7 +38,6 @@ class FetchTextViewController: UIViewController {
 
     private func loadChart(with cell: UITableViewCell, indexPath: IndexPath) {
         if let fileStats = cache.value(for: indexPath.section), fileStats.analysisComplete {
-            self.fileStatsList[indexPath.section] = fileStats
             return
         }
 
@@ -52,7 +51,7 @@ class FetchTextViewController: UIViewController {
             if self.tableView.indexPath(for: cell) == indexPath {
                 DispatchQueue.main.async {
                     self.fileStatsList[indexPath.section] = fetchAnalysisOperation.fileStats
-                    self.tableView.reloadData()
+                    self.tableView.reloadSections([indexPath.section], with: .automatic)
                 }
             }
         }

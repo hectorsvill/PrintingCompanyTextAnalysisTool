@@ -62,4 +62,19 @@ extension ConcurrentOperation {
     override var isAsynchronous: Bool {
         true
     }
+
+
+    override func start() {
+        if isCancelled {
+            state = .isFinished
+            return
+        }
+
+        main()
+        state = .isExecuting
+    }
+
+    override func cancel() {
+        state = .isFinished
+    }
 }
