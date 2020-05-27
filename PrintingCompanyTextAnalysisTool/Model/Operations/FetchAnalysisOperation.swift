@@ -34,7 +34,7 @@ class FetchAnalysisOperation: ConcurrentOperation {
     }
 
     override func cancel() {
-        isCanceled = true
+        fileStats.timeToAnalyze = nil
         fileStats.ligatures1Character = []
         fileStats.ligatures2Character = []
         fileStats.ligatures3Character = []
