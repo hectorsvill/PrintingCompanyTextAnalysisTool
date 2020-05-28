@@ -49,7 +49,7 @@ struct CharacterAnalysis {
 
     }
 
-    // sortDictionary: returns a sorted array of top 20 ligatures
+    // sortDictionary: returns a sorted array of top 20 1 character, 2 character, and 3 charater ligatuures ligatures
     private func sortDictionary(_ dictionary: [String: Int]) -> [(String, Int)] {
           let sortedList = dictionary.sorted { $0.value > $1.value }
           var values: [(String,Int)] = []

@@ -50,5 +50,4 @@ class FileStats: ObservableObject {
     var chart: [[(String, Int)]] {
         return [ligatures1Character, ligatures2Character, ligatures3Character]
     }
-
 }

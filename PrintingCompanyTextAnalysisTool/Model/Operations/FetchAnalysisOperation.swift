@@ -20,7 +20,6 @@ class FetchAnalysisOperation: ConcurrentOperation {
         self.fileStatsDataString = fileStatsDataString
     }
 
-
     override func start() {
         state = .isExecuting
 

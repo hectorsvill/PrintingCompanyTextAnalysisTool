@@ -107,7 +107,6 @@ extension FetchTextViewController: UITableViewDataSource {
 
         return cell
     }
-
 }
 
 extension FetchTextViewController: UITableViewDelegate {
@@ -148,10 +147,9 @@ extension FetchTextViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let section = fileStatsList[indexPath.section].index
             fileStatsList.remove(at: indexPath.section)
-            frequencyAnalysisOperations[section]?.cancel()
-            frequencyAnalysisOperations.removeValue(forKey: section)
+            frequencyAnalysisOperations[indexPath.section]?.cancel()
+            frequencyAnalysisOperations.removeValue(forKey: indexPath.section)
             self.tableView.reloadData()
 
         }

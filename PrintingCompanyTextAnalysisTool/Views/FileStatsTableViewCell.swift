@@ -20,6 +20,8 @@ class FileStatsTableViewCell: UITableViewCell {
 
         if let timeToAnalyze = fileStats.timeToAnalyze {
             detailTextLabel?.text =  String(format: "Time: %0.5F", timeToAnalyze)
+        } else {
+            detailTextLabel?.text = ""
         }
     }
 }

@@ -63,7 +63,6 @@ extension ConcurrentOperation {
         true
     }
 
-
     override func start() {
         if isCancelled {
             state = .isFinished
