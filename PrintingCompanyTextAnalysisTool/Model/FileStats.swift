@@ -21,19 +21,34 @@ class FileStats: ObservableObject {
         self.name = name
     }
 
+    var timeToAnalyze: Double? = nil
+    var chartState: State = .isExecuting
     //  a frequency analysis of the top-20 most common consecutive one-character,
     //  two-character, and three-character patterns.
     var ligatures1Character: [(String, Int)] = []
     var ligatures2Character: [(String, Int)] = []
     var ligatures3Character: [(String, Int)] = []
 
+    enum State: String {
+        case isExecuting, isFinished, isCancelled
+    }
+
+    var stateDescription: String {
+        var description = ""
+
+        if chartState == .isExecuting {
+            description = "Analyzing"
+        } else if chartState == .isFinished {
+            description = "Complete"
+        } else if chartState == .isCancelled {
+            description = "Analysis Canceled"
+        }
+
+        return description
+    }
+
     var chart: [[(String, Int)]] {
         return [ligatures1Character, ligatures2Character, ligatures3Character]
     }
 
-    var timeToAnalyze: Double? = nil {
-        didSet { self.analysisComplete.toggle()}
-    }
-
-    var analysisComplete = false
 }
