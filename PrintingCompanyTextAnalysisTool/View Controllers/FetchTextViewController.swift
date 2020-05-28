@@ -15,7 +15,7 @@ class FetchTextViewController: UIViewController {
     private var fileStatsList = [FileStats]()
 
     private let frequencyAnalysisQueue = OperationQueue()
-    private var frequencyAnalysisOperations = [Int: FetchAnalysisOperation]()
+    private var frequencyAnalysisOperations = [Int: BlockOperation]()
     private let cache = Cache<Int, FileStats>()
 
     override func viewDidLoad() {
@@ -37,31 +37,24 @@ class FetchTextViewController: UIViewController {
     }
 
     private func loadChart(_ section: Int) {
-        if let fileStats = cache.value(for: section), fileStats.analysisComplete {
-            return
-        }
-
-        let fetchAnalysisOperation = FetchAnalysisOperation(fileStats: fileStatsList[section])
-
-        let storeFileStatsInCache = BlockOperation {
-            self.cache.cache(value: fetchAnalysisOperation.fileStats, for: section)
-        }
+        let fetchAnalysisOperation = FetchAnalysisOperation(fileStatsDataString: fileStatsList[section].dataString)
 
         let checkForReusedCell = BlockOperation {
-            if fetchAnalysisOperation.fileStats.index == section {
                 DispatchQueue.main.async {
-                    self.fileStatsList[section] = fetchAnalysisOperation.fileStats
+                    self.fileStatsList[section].ligatures1Character = fetchAnalysisOperation.ligatures1Character
+                    self.fileStatsList[section].ligatures2Character = fetchAnalysisOperation.ligatures2Character
+                    self.fileStatsList[section].ligatures3Character = fetchAnalysisOperation.ligatures3Character
+                    self.fileStatsList[section].chartState = .isFinished
+                    self.fileStatsList[section].timeToAnalyze = fetchAnalysisOperation.timeToAnalyze
                     self.tableView.reloadSections([section], with: .automatic)
                 }
-            }
         }
 
-        storeFileStatsInCache.addDependency(fetchAnalysisOperation)
         checkForReusedCell.addDependency(fetchAnalysisOperation)
 
-        frequencyAnalysisQueue.addOperations([fetchAnalysisOperation, storeFileStatsInCache], waitUntilFinished: false)
+        frequencyAnalysisQueue.addOperations([fetchAnalysisOperation], waitUntilFinished: false)
         OperationQueue.main.addOperation(checkForReusedCell)
-        frequencyAnalysisOperations[section] = fetchAnalysisOperation
+        frequencyAnalysisOperations[section] = checkForReusedCell
     }
 }
 
@@ -78,6 +71,7 @@ extension FetchTextViewController: UIDocumentPickerDelegate, UINavigationControl
             let name = url.absoluteString.split(separator: "/").last!
             let fileStats = FileStats(index: fileStatsList.count,url: url, dataString: dataString, name: String(name))
             DispatchQueue.main.async {
+                fileStats.chartState = .isExecuting
                 self.fileStatsList.append(fileStats)
                 self.loadChart(self.fileStatsList.count - 1)
                 self.tableView.reloadData()
@@ -111,27 +105,30 @@ extension FetchTextViewController: UITableViewDataSource {
 
         let fileStats = fileStatsList[indexPath.section]
         cell.fileStats = fileStats
-//        self.loadChart(with: cell, indexPath: indexPath)
+
         return cell
     }
 
 }
 
 extension FetchTextViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let fileStats = fileStatsList[indexPath.section]
 
-        if !fileStats.analysisComplete {
+        if fileStats.chartState == .isExecuting {
+            // error with canceling Process
             let cancelProcessAlertController = UIAlertController(title: "Stop Processing", message: fileStats.name, preferredStyle: .alert)
 
             cancelProcessAlertController.addAction(UIAlertAction(title: "Stop", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 // stop process
-                if let frequencyAnalysisOperation = self.frequencyAnalysisOperations[indexPath.section] {
+                if let frequencyAnalysisOperation = self.frequencyAnalysisOperations[fileStats.index] {
                     frequencyAnalysisOperation.cancel()
                     DispatchQueue.main.async {
+                        fileStats.chartState = .isCancelled
                         self.tableView.reloadSections([indexPath.section], with: .automatic)
                     }
                 }
@@ -141,22 +138,25 @@ extension FetchTextViewController: UITableViewDelegate {
             cancelProcessAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             present(cancelProcessAlertController, animated: true)
 
-        } else {
+        } else if fileStats.chartState == .isExecuting {
+
+        }else if fileStats.chartState == .isFinished {
             let swiftUIView = ChartsSwiftUIView(fileStats: fileStats)
             let viewController = UIHostingController(rootView: swiftUIView)
             present(viewController, animated: true)
         }
     }
 
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let section = indexPath.section
-//            frequencyAnalysisOperations.removeValue(forKey: section)
-//            fileStatsList.remove(at: section)
-//            frequencyAnalysisOperations.removeValue(forKey:section)
-//            self.tableView.reloadData()
-//
-//        }
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let section = fileStatsList[indexPath.section].index
+            fileStatsList.remove(at: indexPath.section)
+            frequencyAnalysisOperations[section]?.cancel()
+            frequencyAnalysisOperations.removeValue(forKey: section)
+            cache.delete(with: section)
+            self.tableView.reloadData()
+
+        }
+    }
 }
 
