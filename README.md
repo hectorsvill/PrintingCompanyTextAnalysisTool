@@ -8,6 +8,7 @@ Frequency analysis is the study of the distribution of the letters in a text.
 - UTF-8 text files
         - [10000 word list](https://www.mit.edu/~ecprice/wordlist.10000)
         - [Project Gutenberg’s](http://www.gutenberg.org/files/100/100-0.txt)
+        - [gwicks.net](http://www.gwicks.net/dictionaries.htm)
  #
  ## Output
  ##### Will output a frequency analysis of the most common consecutive one-character, two-character, and three-character patterns. 
