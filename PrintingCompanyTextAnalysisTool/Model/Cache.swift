@@ -19,6 +19,14 @@ class Cache <Key: Hashable, Value> {
         }
     }
 
+    func delete(with key: Key) {
+        queue.sync {
+            if let _ = cache[key] {
+                cache.removeValue(forKey: key)
+            }
+        }
+    }
+
     func value(for key: Key) -> Value? {
         return queue.sync { cache[key] }
     }
