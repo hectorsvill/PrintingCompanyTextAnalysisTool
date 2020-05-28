@@ -14,9 +14,12 @@ class FileStatsTableViewCell: UITableViewCell {
     func configureViews() {
         guard let fileStats = fileStats else { return }
 
-        textLabel?.text =  fileStats.analysisComplete ? "Complete" : "In Progress ..."
+        textLabel?.text =  fileStats.stateDescription
         textLabel?.font = .systemFont(ofSize: 11)
         textLabel?.textColor = .systemGray
-        detailTextLabel?.text = fileStats.analysisComplete ? String(format: "Time: %0.5F", fileStats.timeToAnalyze ?? 0) : ""
+
+        if let timeToAnalyze = fileStats.timeToAnalyze {
+            detailTextLabel?.text =  String(format: "Time: %0.5F", timeToAnalyze)
+        }
     }
 }
