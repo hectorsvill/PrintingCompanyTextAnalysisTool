@@ -9,8 +9,6 @@
 import XCTest
 @testable import PrintingCompanyTextAnalysisTool
 
-
-
 class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
 
     let fileStats1 = FileStats(index: 0, url: URL(string: "url.com")!, dataString: testString1, name: "filetext.txt")
@@ -21,11 +19,9 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
         return chart
     }
 
-
     func testFileStatsStatefileStats1() {
         let checkIsExecuting = fileStats1.chartState == .isExecuting
         XCTAssertTrue(checkIsExecuting, "checkIsExecuting Failed to set isExecuting after init")
-
     }
 
     func testCharaterAnalysisNotemptyfileStats1() {
@@ -45,9 +41,7 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
 
             }
         }
-
     }
-
 }
 
 

@@ -16,7 +16,6 @@ class FetchTextViewController: UIViewController {
 
     private let frequencyAnalysisQueue = OperationQueue()
     private var frequencyAnalysisOperations = [Int: BlockOperation]()
-    private let cache = Cache<Int, FileStats>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +38,7 @@ class FetchTextViewController: UIViewController {
     private func loadChart(_ section: Int) {
         let fetchAnalysisOperation = FetchAnalysisOperation(fileStatsDataString: fileStatsList[section].dataString)
 
-        let checkForReusedCell = BlockOperation {
+        let setFileStatsListOperation = BlockOperation {
                 DispatchQueue.main.async {
                     self.fileStatsList[section].ligatures1Character = fetchAnalysisOperation.ligatures1Character
                     self.fileStatsList[section].ligatures2Character = fetchAnalysisOperation.ligatures2Character
@@ -50,11 +49,11 @@ class FetchTextViewController: UIViewController {
                 }
         }
 
-        checkForReusedCell.addDependency(fetchAnalysisOperation)
+        setFileStatsListOperation.addDependency(fetchAnalysisOperation)
 
         frequencyAnalysisQueue.addOperations([fetchAnalysisOperation], waitUntilFinished: false)
-        OperationQueue.main.addOperation(checkForReusedCell)
-        frequencyAnalysisOperations[section] = checkForReusedCell
+        OperationQueue.main.addOperation(setFileStatsListOperation)
+        frequencyAnalysisOperations[section] = setFileStatsListOperation
     }
 }
 
@@ -153,7 +152,6 @@ extension FetchTextViewController: UITableViewDelegate {
             fileStatsList.remove(at: indexPath.section)
             frequencyAnalysisOperations[section]?.cancel()
             frequencyAnalysisOperations.removeValue(forKey: section)
-            cache.delete(with: section)
             self.tableView.reloadData()
 
         }
