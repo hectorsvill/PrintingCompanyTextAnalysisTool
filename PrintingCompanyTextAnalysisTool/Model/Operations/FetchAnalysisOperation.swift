@@ -9,45 +9,45 @@
 import Foundation
 
 class FetchAnalysisOperation: ConcurrentOperation {
-    var fileStats: FileStats
+    var fileStatsDataString: String
+    var timeToAnalyze: Double? = nil
+    var ligatures1Character: [(String, Int)] = []
+    var ligatures2Character: [(String, Int)] = []
+    var ligatures3Character: [(String, Int)] = []
     var isCanceled = false
 
-    init(fileStats: FileStats) {
-        self.fileStats = fileStats
+    init(fileStatsDataString: String) {
+        self.fileStatsDataString = fileStatsDataString
     }
 
 
     override func start() {
-        
         state = .isExecuting
 
         let timer1 = Date()
-
-        characterAnalysis(fileStats)
-
-        fileStats.timeToAnalyze = Date().timeIntervalSince1970 - timer1.timeIntervalSince1970
-
-        fileStats.analysisComplete = true
+        
+        characterAnalysis(fileStatsDataString)
+        timeToAnalyze = Date().timeIntervalSince1970 - timer1.timeIntervalSince1970
 
         state = .isFinished
-
     }
 
     override func cancel() {
-        fileStats.timeToAnalyze = nil
-        fileStats.ligatures1Character = []
-        fileStats.ligatures2Character = []
-        fileStats.ligatures3Character = []
+        super.cancel()
+        timeToAnalyze = nil
+        ligatures1Character = []
+        ligatures2Character = []
+        ligatures3Character = []
     }
 }
 
 extension FetchAnalysisOperation {
-    private func characterAnalysis(_ fileStats: FileStats) {
+    private func characterAnalysis(_ fileStats: String) {
         var singleChardictionary: [String: Int] = [:]
         var doubleChardictionary: [String: Int] = [:]
         var tripleChardictionary: [String: Int] = [:]
 
-        let stringArray = Array(fileStats.dataString)
+        let stringArray = Array(fileStats)
         var index = 0
 
         while index < stringArray.count{
@@ -77,9 +77,9 @@ extension FetchAnalysisOperation {
         }
 
         if !isCanceled {
-            fileStats.ligatures1Character = sortDictionary(singleChardictionary)
-            fileStats.ligatures2Character = sortDictionary(doubleChardictionary)
-            fileStats.ligatures3Character = sortDictionary(tripleChardictionary)
+            ligatures1Character = sortDictionary(singleChardictionary)
+            ligatures2Character = sortDictionary(doubleChardictionary)
+            ligatures3Character = sortDictionary(tripleChardictionary)
         }
     }
 
