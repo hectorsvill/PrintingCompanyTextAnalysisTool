@@ -4,9 +4,9 @@ Frequency analysis is the study of the distribution of the letters in a text.
 
 ## Input
  ##### Frequency Analysis Tool will input a text file that is UTF-8 compatible.
- #
-> UTF-8 text files
-        -   [10000 word list](https://www.mit.edu/~ecprice/wordlist.10000)
+
+- UTF-8 text files
+        - [10000 word list](https://www.mit.edu/~ecprice/wordlist.10000)
         - [Project Gutenberg’s](http://www.gutenberg.org/files/100/100-0.txt)
  #
  ## Output
