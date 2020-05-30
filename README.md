@@ -1,5 +1,8 @@
 #  Frequency Analysis Tool
+#
 
+#### Available on TestFlight [TestFlight Link](https://testflight.apple.com/join/u9EszEwk)
+#
 Frequency analysis is the study of the distribution of the letters in a text.
 
 ## Input
