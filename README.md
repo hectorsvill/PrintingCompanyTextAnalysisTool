@@ -2,6 +2,9 @@
 #
 
 #### Available on TestFlight [TestFlight Link](https://testflight.apple.com/join/u9EszEwk)
+
+- [YouTube Demo Link](https://youtu.be/fdnFDqMRmgM)
+
 #
 Frequency analysis is the study of the distribution of the letters in a text.
 
