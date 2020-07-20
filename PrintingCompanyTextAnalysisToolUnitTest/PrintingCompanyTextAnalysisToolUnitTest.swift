@@ -20,7 +20,7 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
         fileStats1 = nil
     }
 
-    func  fetchChart(_ fileStats: FileStats) -> [[(String, Int)]] {
+    func fetchChart(_ fileStats: FileStats) -> [[(String, Int)]] {
         let string = fileStats.dataString
         let chart = CharacterAnalysis().characterAnalysis(string)
         return chart
@@ -44,11 +44,9 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
 
         for (indexX, items) in chart1.enumerated() {
             for (indexY, value) in items.enumerated() {
-
                 let solutionTuple = chart1[indexX][indexY]
                 XCTAssertEqual(value.0, solutionTuple.0)
                 XCTAssertEqual(value.1, solutionTuple.1)
-
             }
         }
     }
