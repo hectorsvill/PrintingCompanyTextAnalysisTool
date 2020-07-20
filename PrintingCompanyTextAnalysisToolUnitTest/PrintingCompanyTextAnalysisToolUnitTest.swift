@@ -10,8 +10,15 @@ import XCTest
 @testable import PrintingCompanyTextAnalysisTool
 
 class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
-
-    let fileStats1 = FileStats(index: 0, url: URL(string: "url.com")!, dataString: testString1, name: "filetext.txt")
+    var fileStats1: FileStats? = nil
+    
+    override func setUp() {
+        fileStats1 = FileStats(index: 0, url: URL(string: "url.com")!, dataString: testString1, name: "filetext.txt")
+    }
+    
+    override func tearDown() {
+        fileStats1 = nil
+    }
 
     func  fetchChart(_ fileStats: FileStats) -> [[(String, Int)]] {
         let string = fileStats.dataString
@@ -20,17 +27,20 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
     }
 
     func testFileStatsStatefileStats1() {
-        let checkIsExecuting = fileStats1.chartState == .isExecuting
+        XCTAssertNotNil(fileStats1)
+        let checkIsExecuting = fileStats1?.chartState == .isExecuting
         XCTAssertTrue(checkIsExecuting, "checkIsExecuting Failed to set isExecuting after init")
     }
 
     func testCharaterAnalysisNotemptyfileStats1() {
-        let chart1 = fetchChart(fileStats1)
+        XCTAssertNotNil(fileStats1)
+        let chart1 = fetchChart(fileStats1!)
         XCTAssertTrue(!chart1.isEmpty, "testCharaterAnalysis is empty")
     }
 
     func testCharaterAnalysisfileStats1() {
-        let chart1 = fetchChart(fileStats1)
+        XCTAssertNotNil(fileStats1)
+        let chart1 = fetchChart(fileStats1!)
 
         for (indexX, items) in chart1.enumerated() {
             for (indexY, value) in items.enumerated() {
