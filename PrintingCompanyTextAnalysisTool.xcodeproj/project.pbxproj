@@ -22,10 +22,18 @@
 		12FD4144247E1261006281C8 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD4143247E1261006281C8 /* Cache.swift */; };
 		12FD4146247E1921006281C8 /* FileStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD4145247E1921006281C8 /* FileStatsTableViewCell.swift */; };
 		12FD414F247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */; };
+		3B8BC73524C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		12FD4151247F7D64006281C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12C82D07247B14D000C4AF31 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12C82D0E247B14D000C4AF31;
+			remoteInfo = PrintingCompanyTextAnalysisTool;
+		};
+		3B8BC73724C61D9A00972D76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12C82D07247B14D000C4AF31 /* Project object */;
 			proxyType = 1;
@@ -56,6 +64,9 @@
 		12FD414C247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrintingCompanyTextAnalysisToolUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUnitTest.swift; sourceTree = "<group>"; };
 		12FD4150247F7D64006281C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B8BC73224C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrintingCompanyTextAnalysisToolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUITests.swift; sourceTree = "<group>"; };
+		3B8BC73624C61D9A00972D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +79,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		12FD4149247F7D64006281C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B8BC72F24C61D9A00972D76 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,6 +109,7 @@
 				12584788247C3C8B00FC17E5 /* README.md */,
 				12C82D11247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool */,
 				12FD414D247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest */,
+				3B8BC73324C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests */,
 				12C82D10247B14D000C4AF31 /* Products */,
 				12C82D2B247B1D7C00C4AF31 /* Frameworks */,
 			);
@@ -101,6 +120,7 @@
 			children = (
 				12C82D0F247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool.app */,
 				12FD414C247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.xctest */,
+				3B8BC73224C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,6 +212,15 @@
 			path = PrintingCompanyTextAnalysisToolUnitTest;
 			sourceTree = "<group>";
 		};
+		3B8BC73324C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */,
+				3B8BC73624C61D9A00972D76 /* Info.plist */,
+			);
+			path = PrintingCompanyTextAnalysisToolUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -230,6 +259,24 @@
 			productReference = 12FD414C247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3B8BC73124C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B8BC73B24C61D9A00972D76 /* Build configuration list for PBXNativeTarget "PrintingCompanyTextAnalysisToolUITests" */;
+			buildPhases = (
+				3B8BC72E24C61D9A00972D76 /* Sources */,
+				3B8BC72F24C61D9A00972D76 /* Frameworks */,
+				3B8BC73024C61D9A00972D76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B8BC73824C61D9A00972D76 /* PBXTargetDependency */,
+			);
+			name = PrintingCompanyTextAnalysisToolUITests;
+			productName = PrintingCompanyTextAnalysisToolUITests;
+			productReference = 3B8BC73224C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -244,6 +291,10 @@
 						CreatedOnToolsVersion = 11.4.1;
 					};
 					12FD414B247F7D64006281C8 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 12C82D0E247B14D000C4AF31;
+					};
+					3B8BC73124C61D9A00972D76 = {
 						CreatedOnToolsVersion = 11.5;
 						TestTargetID = 12C82D0E247B14D000C4AF31;
 					};
@@ -264,6 +315,7 @@
 			targets = (
 				12C82D0E247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool */,
 				12FD414B247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest */,
+				3B8BC73124C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -280,6 +332,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		12FD414A247F7D64006281C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B8BC73024C61D9A00972D76 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,6 +373,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3B8BC72E24C61D9A00972D76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B8BC73524C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -321,6 +388,11 @@
 			isa = PBXTargetDependency;
 			target = 12C82D0E247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool */;
 			targetProxy = 12FD4151247F7D64006281C8 /* PBXContainerItemProxy */;
+		};
+		3B8BC73824C61D9A00972D76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12C82D0E247B14D000C4AF31 /* PrintingCompanyTextAnalysisTool */;
+			targetProxy = 3B8BC73724C61D9A00972D76 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -540,6 +612,46 @@
 			};
 			name = Release;
 		};
+		3B8BC73924C61D9A00972D76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 97AS6JS382;
+				INFOPLIST_FILE = PrintingCompanyTextAnalysisToolUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hectorstevenvillasano.PrintingCompanyTextAnalysisToolUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PrintingCompanyTextAnalysisTool;
+			};
+			name = Debug;
+		};
+		3B8BC73A24C61D9A00972D76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 97AS6JS382;
+				INFOPLIST_FILE = PrintingCompanyTextAnalysisToolUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hectorstevenvillasano.PrintingCompanyTextAnalysisToolUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PrintingCompanyTextAnalysisTool;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -566,6 +678,15 @@
 			buildConfigurations = (
 				12FD4153247F7D64006281C8 /* Debug */,
 				12FD4154247F7D64006281C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B8BC73B24C61D9A00972D76 /* Build configuration list for PBXNativeTarget "PrintingCompanyTextAnalysisToolUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B8BC73924C61D9A00972D76 /* Debug */,
+				3B8BC73A24C61D9A00972D76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
