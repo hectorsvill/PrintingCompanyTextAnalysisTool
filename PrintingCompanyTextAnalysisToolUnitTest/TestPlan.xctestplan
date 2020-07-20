@@ -1,0 +1,42 @@
+{
+  "configurations" : [
+    {
+      "id" : "1EE064D2-0ADE-45ED-960D-9F5E7F8373DA",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    },
+    {
+      "id" : "872CEC2B-0F5F-403F-AE7D-6EFB83192911",
+      "name" : "Spanish Configuration",
+      "options" : {
+        "language" : "es",
+        "region" : "MX",
+        "testExecutionOrdering" : "alphabetical"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PrintingCompanyTextAnalysisTool.xcodeproj",
+        "identifier" : "12FD414B247F7D64006281C8",
+        "name" : "PrintingCompanyTextAnalysisToolUnitTest"
+      }
+    },
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:PrintingCompanyTextAnalysisTool.xcodeproj",
+        "identifier" : "3B8BC73124C61D9A00972D76",
+        "name" : "PrintingCompanyTextAnalysisToolUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

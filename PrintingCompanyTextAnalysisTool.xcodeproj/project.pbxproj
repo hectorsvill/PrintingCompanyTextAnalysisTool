@@ -67,6 +67,7 @@
 		3B8BC73224C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrintingCompanyTextAnalysisToolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUITests.swift; sourceTree = "<group>"; };
 		3B8BC73624C61D9A00972D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B8BC73C24C62B3600972D76 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +209,7 @@
 			children = (
 				12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */,
 				12FD4150247F7D64006281C8 /* Info.plist */,
+				3B8BC73C24C62B3600972D76 /* TestPlan.xctestplan */,
 			);
 			path = PrintingCompanyTextAnalysisToolUnitTest;
 			sourceTree = "<group>";
