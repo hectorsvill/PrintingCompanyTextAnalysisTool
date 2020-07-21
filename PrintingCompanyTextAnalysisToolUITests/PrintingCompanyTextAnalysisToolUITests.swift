@@ -15,6 +15,10 @@ class PrintingCompanyTextAnalysisToolUITests: XCTestCase {
         app.navigationBars["Frequency Analysis"]
     }
     
+    var filePickerNavigationBar: XCUIElement {
+        app.navigationBars["FullDocumentManagerViewControllerNavigationBar"]
+    }
+    
     var newInputFileButton: XCUIElement {
         app.buttons["NewInputFileButton"]
     }
@@ -38,21 +42,29 @@ extension PrintingCompanyTextAnalysisToolUITests {
     func testFilePickerIsHittableAllConfigurations() {
         newInputFileButton.tap()
         
-        let filePickerNavBar = app.navigationBars["FullDocumentManagerViewControllerNavigationBar"]
-        XCTAssert(filePickerNavBar.isHittable)
+        XCTAssert(filePickerNavigationBar.isHittable)
       
         #if DEBUG
         if CommandLine.arguments.contains("Configuration 1") {
-            let filePickerNavBarCancelButton = filePickerNavBar.buttons["Cancel"]
-            XCTAssert(filePickerNavBar.isHittable)
-            filePickerNavBarCancelButton.tap()
-        }else if CommandLine.arguments.contains("Spanish Configuration") {
-            let filePickerNavBarCancelButton = filePickerNavBar.buttons["Cancelar"]
-            XCTAssert(filePickerNavBar.isHittable)
-            filePickerNavBarCancelButton.tap()
+            testFilePickerIsHittableAllConfigurations_Configuration1()
+        } else if CommandLine.arguments.contains("Spanish Configuration") {
+            testFilePickerIsHittableAllConfigurations_SpanishConfiguration()
         }
-        #endif
         
-//        XCTAssert(mainNavigationBar.isHittable)
+        #endif
+    }
+    
+    private func testFilePickerIsHittableAllConfigurations_Configuration1() {
+        let filePickerNavBarCancelButton = filePickerNavigationBar.buttons["Cancel"]
+        XCTAssert(filePickerNavBarCancelButton.isHittable)
+        filePickerNavBarCancelButton.tap()
+        XCTAssert(mainNavigationBar.isHittable)
+    }
+    
+    private func testFilePickerIsHittableAllConfigurations_SpanishConfiguration() {
+        let filePickerNavBarCancelButton = filePickerNavigationBar.buttons["Cancelar"]
+        XCTAssert(filePickerNavBarCancelButton.isHittable)
+        filePickerNavBarCancelButton.tap()
+        XCTAssert(mainNavigationBar.isHittable)
     }
 }
