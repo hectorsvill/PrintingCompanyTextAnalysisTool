@@ -10,6 +10,10 @@ import XCTest
 
 class PrintingCompanyTextAnalysisToolUITests: XCTestCase {
     let app = XCUIApplication()
+    
+    var newInputFileButton: XCUIElement {
+        return app.buttons["NewInputFileButton"]
+    }
 
     override func setUp() {
         continueAfterFailure = false
@@ -19,18 +23,8 @@ class PrintingCompanyTextAnalysisToolUITests: XCTestCase {
     override func tearDown() {
     }
     
-    func testNewInputFileButtonExist() {
-        let newInputFileButton = app.buttons["NewInputFileButton"]
+    func testNewInputFileButtonIsHittable() {
         XCTAssert(newInputFileButton.isHittable)
         newInputFileButton.tap()
-    }
-    
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
     }
 }
