@@ -15,15 +15,15 @@ extension PrintingCompanyTextAnalysisToolUnitTest {
             _ = fetchChart(fileStats1!)
         }
     }
-
-    func testFetchChartCPUMetrics() {
+    
+    func testFetchChartCPUMetric() {
         measure(metrics: [XCTCPUMetric()]) {
             _ = fetchChart(fileStats1!)
         }
     }
-  
-    func testFetchChartCPUMetrics() {
-        measure(metrics: [XCTCPUMetric()]) {
+    
+    func testFetchChartMemoryMetric() {
+        measure(metrics: [XCTMemoryMetric()]) {
             _ = fetchChart(fileStats1!)
         }
     }
