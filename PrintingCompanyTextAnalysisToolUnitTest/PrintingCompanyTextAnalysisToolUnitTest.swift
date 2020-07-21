@@ -19,13 +19,16 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
     override func tearDown() {
         fileStats1 = nil
     }
-
+    
     func fetchChart(_ fileStats: FileStats) -> [[(String, Int)]] {
         let string = fileStats.dataString
         let chart = CharacterAnalysis().characterAnalysis(string)
         return chart
     }
+}
 
+// MARK: - TEST
+extension PrintingCompanyTextAnalysisToolUnitTest {
     func testFileStatsStatefileStats1() {
         XCTAssertNotNil(fileStats1)
         let checkIsExecuting = fileStats1?.chartState == .isExecuting
@@ -51,9 +54,6 @@ class PrintingCompanyTextAnalysisToolUnitTest: XCTestCase {
         }
     }
 }
-
-
-
 
 fileprivate let solution1 =  [[("e", 7601), ("i", 5461), ("a", 5378), ("s", 5085), ("r", 4860), ("n", 4822), ("t", 4760), ("o", 4252), ("l", 3231), ("c", 3025), ("d", 2507), ("p", 2027), ("u", 1939), ("m", 1912), ("g", 1717), ("h", 1429), ("b", 1141), ("y", 1027), ("f", 927), ("v", 849)],
                               [("in", 1325), ("er", 1114), ("on", 1067), ("re", 999), ("ti", 995), ("es", 941), ("en", 844), ("te", 798), ("at", 781), ("an", 727), ("ng", 706), ("ed", 685), ("ar", 678), ("nt", 661), ("al", 653), ("st", 646), ("or", 613), ("io", 603), ("ra", 593), ("co", 591)],

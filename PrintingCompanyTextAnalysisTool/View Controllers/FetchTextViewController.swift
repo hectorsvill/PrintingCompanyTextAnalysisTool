@@ -21,6 +21,7 @@ class FetchTextViewController: UIViewController {
         super.viewDidLoad()
 
         configureViews()
+        
     }
 
     private func configureViews() {

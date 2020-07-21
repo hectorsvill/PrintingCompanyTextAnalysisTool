@@ -22,6 +22,8 @@
 		12FD4144247E1261006281C8 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD4143247E1261006281C8 /* Cache.swift */; };
 		12FD4146247E1921006281C8 /* FileStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD4145247E1921006281C8 /* FileStatsTableViewCell.swift */; };
 		12FD414F247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */; };
+		3B74DAB724C7861C00ECC30E /* PrintingCompanyTextAnalysisToolUITestsMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B74DAB624C7861C00ECC30E /* PrintingCompanyTextAnalysisToolUITestsMetrics.swift */; };
+		3B74DAB924C78EC400ECC30E /* PrintingCompanyTextAnalysisToolUnitTestMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B74DAB824C78EC400ECC30E /* PrintingCompanyTextAnalysisToolUnitTestMetrics.swift */; };
 		3B8BC73524C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		12FD414C247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrintingCompanyTextAnalysisToolUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUnitTest.swift; sourceTree = "<group>"; };
 		12FD4150247F7D64006281C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B74DAB624C7861C00ECC30E /* PrintingCompanyTextAnalysisToolUITestsMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUITestsMetrics.swift; sourceTree = "<group>"; };
+		3B74DAB824C78EC400ECC30E /* PrintingCompanyTextAnalysisToolUnitTestMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUnitTestMetrics.swift; sourceTree = "<group>"; };
 		3B8BC73224C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrintingCompanyTextAnalysisToolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingCompanyTextAnalysisToolUITests.swift; sourceTree = "<group>"; };
 		3B8BC73624C61D9A00972D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				12FD414E247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift */,
+				3B74DAB824C78EC400ECC30E /* PrintingCompanyTextAnalysisToolUnitTestMetrics.swift */,
 				12FD4150247F7D64006281C8 /* Info.plist */,
 				3B8BC73C24C62B3600972D76 /* TestPlan.xctestplan */,
 			);
@@ -218,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				3B8BC73424C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift */,
+				3B74DAB624C7861C00ECC30E /* PrintingCompanyTextAnalysisToolUITestsMetrics.swift */,
 				3B8BC73624C61D9A00972D76 /* Info.plist */,
 			);
 			path = PrintingCompanyTextAnalysisToolUITests;
@@ -372,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12FD414F247F7D64006281C8 /* PrintingCompanyTextAnalysisToolUnitTest.swift in Sources */,
+				3B74DAB924C78EC400ECC30E /* PrintingCompanyTextAnalysisToolUnitTestMetrics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B8BC73524C61D9A00972D76 /* PrintingCompanyTextAnalysisToolUITests.swift in Sources */,
+				3B74DAB724C7861C00ECC30E /* PrintingCompanyTextAnalysisToolUITestsMetrics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

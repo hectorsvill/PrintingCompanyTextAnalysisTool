@@ -28,13 +28,11 @@ class PrintingCompanyTextAnalysisToolUITests: XCTestCase {
         app.launch()
     }
     
-    override func tearDown() {
-    }
-    
+    override func tearDown() {}
 }
 
+// MARK: - testFilePickerIsHittableAllConfigurations
 extension PrintingCompanyTextAnalysisToolUITests {
-    
     func testNewInputFileButtonIsHittable() {
         XCTAssert(newInputFileButton.isHittable)
     }
@@ -50,7 +48,6 @@ extension PrintingCompanyTextAnalysisToolUITests {
         } else if CommandLine.arguments.contains("Spanish Configuration") {
             testFilePickerIsHittableAllConfigurations_SpanishConfiguration()
         }
-        
         #endif
     }
     
